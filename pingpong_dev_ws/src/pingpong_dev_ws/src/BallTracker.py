@@ -3,6 +3,7 @@ from sensor_msgs.msg import Image
 import rospy
 import cv2 as cv
 import numpy as np
+import pyrealsense2 as rs
 from cv_bridge import CvBridge #needed to convert from ros image to cv image
 
 
@@ -10,8 +11,39 @@ def get_ball_image_position(self, image: Image):
     return (0.5, 0.5)
 
 def get_ball_position(self):
-    #ball triangulation code here
-    return self.ball_position
+    #returns x, y, and z coordinates of ball
+
+    # WE NEED TO MOVE ALL OF THE REAL SENSE CONFIG CODE OUTSIDE OF THE METHOD
+    ballPipeline = rs.pipeline()
+    ballConfig = rs.config()
+    ballConfig.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 60) 
+    ballConfig.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 60) 
+    #^^  Need to review desired resolution, do we want more accuracy or speed?
+
+    try:
+         while True:
+              ballFrames = ballPipeline.wait_for_frames()
+              ballDepthFrame = ballFrames.get_depth_frame()
+              ballColorFrame = ballFrames.get_color_frame()
+              # ^^ Gets depth frame from RealSense camera
+
+              if not ballDepthFrame:
+                   continue
+              
+              ballColorImage = np.asanyarray(ballColorFrame.get_data()) # Convert to a format OpenCV can understand
+              
+              ballCenter = image_callback(ballColorImage)
+
+              if ballCenter is not None:
+                   ballDepthValue = ballDepthFrame.get_distance(ballCenter[0], ballCenter[1])
+
+                   ballDistance = ballDepthValue / 1000 #Unsure about the dividing by 1000
+
+                   ballCoordinates = np.array(ballCenter[0], ballCenter[1], ballDistance)
+                   return ballCoordinates
+    finally:
+
+    #return self.ball_position
 
 def image_callback(msg: Image):
         bridge = CvBridge()
@@ -32,7 +64,8 @@ def image_callback(msg: Image):
         
         if detectedCircles is not None:
             if len(detectedCircles) == 1:
-                x, y, r = detectedCircles[0][0]
+                #x, y, r = detectedCircles[0][0]
+                 x, y = detectedCircles[0][:2]
                 #x, y, r is the x, y coordinates with r radius
                 #prob will return this
             else:
