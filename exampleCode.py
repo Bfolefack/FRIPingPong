@@ -10,8 +10,8 @@ config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
 pipeline.start(config)
 
 # Define color threshold for ball detection
-lower_color = np.array([0, 100, 100])  # Lower bound color rgb
-upper_color = np.array([10, 255, 255])  # Upper bound rgb
+lower_color = np.array([0, 0, 0])  # Lower bound color rgb
+upper_color = np.array([255, 255, 255])  # Upper bound rgb
 
 try:
     while True:
@@ -29,7 +29,7 @@ try:
         color_mask = cv2.inRange(color_image, lower_color, upper_color)
         blur_ball_frame = cv2.GaussianBlur(color_mask, (11, 11), 0)
         detected_circles = cv2.HoughCircles(blur_ball_frame, cv2.HOUGH_GRADIENT, dp=1, minDist=50, param1=200, param2=30, minRadius=0, maxRadius=0)
-
+        print(len(detected_circles))
         if detected_circles is not None:
             for circle in detected_circles[0]:
                 x, y = circle[:2]  # Extract x, y coordinates of the detected circle
@@ -39,7 +39,7 @@ try:
         # Display the frames with detected circles
         cv2.namedWindow('RealSense', cv2.WINDOW_AUTOSIZE)
         cv2.imshow('RealSense', color_image)
-        cv2.waitKey('x')
+        cv2.waitKey(1)
 
 finally:
     # Stop streaming
