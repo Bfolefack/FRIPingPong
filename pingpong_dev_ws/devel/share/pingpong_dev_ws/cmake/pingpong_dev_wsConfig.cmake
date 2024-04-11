@@ -91,9 +91,9 @@ endif()
 # flag project as catkin-based to distinguish if a find_package()-ed project is a catkin project
 set(pingpong_dev_ws_FOUND_CATKIN_PROJECT TRUE)
 
-if(NOT " " STREQUAL " ")
+if(NOT "/home/boueny/Desktop/PingPong/FRIPingPong/pingpong_dev_ws/devel/include " STREQUAL " ")
   set(pingpong_dev_ws_INCLUDE_DIRS "")
-  set(_include_dirs "")
+  set(_include_dirs "/home/boueny/Desktop/PingPong/FRIPingPong/pingpong_dev_ws/devel/include")
   if(NOT " " STREQUAL " ")
     set(_report "Check the issue tracker '' and consider creating a ticket if the problem has not been reported yet.")
   elseif(NOT " " STREQUAL " ")
@@ -154,7 +154,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/boueny/Desktop/PingPong/FRIPingPong/pingpong_dev_ws/devel/lib;/home/boueny/robot_learning_ws/devel/lib;/opt/ros/noetic/lib)
+    foreach(path /home/boueny/Desktop/PingPong/FRIPingPong/pingpong_dev_ws/devel/lib;/home/boueny/Desktop/PingPong/FRIPingPong/pingpong_dev_ws/devel/lib;/home/boueny/robot_learning_ws/devel/lib;/opt/ros/noetic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)
@@ -177,7 +177,7 @@ foreach(library ${libraries})
   endif()
 endforeach()
 
-set(pingpong_dev_ws_EXPORTED_TARGETS "")
+set(pingpong_dev_ws_EXPORTED_TARGETS "pingpong_dev_ws_generate_messages_cpp;pingpong_dev_ws_generate_messages_eus;pingpong_dev_ws_generate_messages_lisp;pingpong_dev_ws_generate_messages_nodejs;pingpong_dev_ws_generate_messages_py")
 # create dummy targets for exported code generation targets to make life of users easier
 foreach(t ${pingpong_dev_ws_EXPORTED_TARGETS})
   if(NOT TARGET ${t})
@@ -214,7 +214,7 @@ foreach(depend ${depends})
   _list_append_deduplicate(pingpong_dev_ws_EXPORTED_TARGETS ${${pingpong_dev_ws_dep}_EXPORTED_TARGETS})
 endforeach()
 
-set(pkg_cfg_extras "")
+set(pkg_cfg_extras "pingpong_dev_ws-msg-extras.cmake")
 foreach(extra ${pkg_cfg_extras})
   if(NOT IS_ABSOLUTE ${extra})
     set(extra ${pingpong_dev_ws_DIR}/${extra})
