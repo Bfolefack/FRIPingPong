@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>pingpong_dev_ws</name>
+  <name>pingpong_pkg</name>
   <version>0.0.0</version>
   <description>The pingpong_dev_ws package</description>
 

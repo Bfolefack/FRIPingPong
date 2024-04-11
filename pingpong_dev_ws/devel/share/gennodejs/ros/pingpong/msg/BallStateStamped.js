@@ -1,6 +1,6 @@
 // Auto-generated. Do not edit!
 
-// (in-package pingpong_dev_ws.msg)
+// (in-package pingpong.msg)
 
 
 "use strict";
@@ -11,8 +11,8 @@ const _deserializer = _ros_msg_utils.Deserialize;
 const _arrayDeserializer = _deserializer.Array;
 const _finder = _ros_msg_utils.Find;
 const _getByteLength = _ros_msg_utils.getByteLength;
-let std_msgs = _finder('std_msgs');
 let geometry_msgs = _finder('geometry_msgs');
+let std_msgs = _finder('std_msgs');
 
 //-----------------------------------------------------------
 
@@ -89,7 +89,7 @@ class BallStateStamped {
 
   static datatype() {
     // Returns string type for a message object
-    return 'pingpong_dev_ws/BallStateStamped';
+    return 'pingpong/BallStateStamped';
   }
 
   static md5sum() {
