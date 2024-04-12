@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="table">
+<!-- Table Link -->
+    <link name="table_link">
+        <visual>
+            <geometry>
+                <mesh filename="package://ping_pong_gazebo/models/table/table.stl"/>
+            </geometry>
+
+            <origin xyz="0 0 0" rpy="0 0 0" />
+
+            <material>
+                <diffuse>0 0 0.75 1</diffuse>
+                <script>
+                    <uri>file://ping_pong_gazebo/models/table/table.dae</uri>
+                    <name>Gazebo/Table</name>
+                </script>
+            </material>
+
+            <material>
+            </material>
+        </visual>
+
+
+        <collision>
+            <geometry>
+                <mesh filename="package://ping_pong_gazebo/models/table/table.stl"/>
+            </geometry>
+
+
+            <surface>
+                <bounce> restitution_coefficient="0.8" </bounce>
+            </surface>
+
+
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <material>
+                <diffuse>0 0 0.75 1</diffuse>
+                <script>
+                    <uri>file://ping_pong_gazebo/models/table/table.dae</uri>
+                    <name>Gazebo/Table</name>
+                </script>
+            </material>
+        </collision>
+
+        <!-- Inertial field doesn't actually matter since the table is fixed -->
+        <inertial>
+            <mass/>
+            <origin/>
+            <inertia/>
+        </inertial>
+    </link>
+</robot>
