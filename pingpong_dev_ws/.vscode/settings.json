@@ -1,3 +1,10 @@
 {
-    "cmake.sourceDirectory": "/home/boueny/Desktop/PingPong/FRIPingPong/pingpong_dev_ws/src/pingpong_pkg"
+    "cmake.sourceDirectory": "/home/boueny/Desktop/PingPong/FRIPingPong/pingpong_dev_ws/src/pingpong_pkg",
+    "files.associations": {
+        "*.mcfunction": "mcfunction",
+        "*.mcmeta": "django-txt",
+        "array": "cpp",
+        "string": "cpp",
+        "string_view": "cpp"
+    }
 }

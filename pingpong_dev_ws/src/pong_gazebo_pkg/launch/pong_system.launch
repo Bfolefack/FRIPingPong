@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<launch>
+
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <!-- Set parameters for the empty world -->
+<!--        <arg name="world_name" value="worlds/empty.world"/> &lt;!&ndash; Change to your world file if needed &ndash;&gt;-->
+        <arg name="paused" value="false"/>
+        <arg name="use_sim_time" value="true"/>
+        <arg name="gui" value="true"/>
+        <arg name="headless" value="false"/>
+        <arg name="debug" value="false"/>
+    </include>
+
+    <param name="robot_description2" textfile="$(find pong_gazebo_pkg)/models/pong_working.urdf.xacro"/>
+
+    <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description2 -urdf -model pong_system" />
+
+</launch>
