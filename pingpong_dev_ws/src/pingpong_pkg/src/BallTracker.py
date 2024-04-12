@@ -1,6 +1,8 @@
 from geometry_msgs.msg import Vector3
 from sensor_msgs.msg import Image
 import rospy
+import image_view
+
 
 color_image_received = False
 depth_image_received = False
@@ -12,8 +14,11 @@ def get_ball_image_position(self, image: Image):
 
 
 def image_callback(msg: Image):
+    print("Color Image received")
+    image_view.imshow(msg)
     pass
 def depth_callback(msg: Image):
+    print("Depth Image received")
     pass
     
 def launch_ball_tracker():
@@ -29,4 +34,6 @@ def launch_ball_tracker():
 
     rospy.init_node('ball_tracker')
     ball_position_pub = rospy.Publisher('/ball_position', Vector3, queue_size=10)
-    rospy.spin()
+
+launch_ball_tracker()
+rospy.spin()
