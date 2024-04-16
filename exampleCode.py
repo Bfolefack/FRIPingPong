@@ -3,8 +3,8 @@ import numpy as np
 import cv2 as cv
 
 #Create orange arrays (Constant)
-lower_pink = np.array([0, 70, 70])
-upper_pink = np.array([20, 255, 255])
+lower_pink = np.array([5, 50, 50])
+upper_pink = np.array([15, 255, 255])
 
 
 # Initialize RealSense pipeline
@@ -36,9 +36,11 @@ try:
         blur_ball_frame = cv.GaussianBlur(pink_mask, (11, 11), 0)
         ballContours = cv.findContours(pink_mask, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)
 
-        if ballContours is not None and ballContours[0] is not None:
+        #
+
+        if len(ballContours[0]) != 0 : #and ballContours[0][0] is not None:
             #print("ball countours: ",ballContours)
-            contourArea = cv.contourArea(ballContours[0][0], False)
+            #contourArea = cv.contourArea(ballContours[0][0], False)
             #print("ball area: ",contourArea)
             #if contourArea > 100:
             x, y, w, h = cv.boundingRect(ballContours[0][0])
@@ -46,9 +48,10 @@ try:
             xDepth = x + (w/2)
             yDepth = y + (h/2)
             z = depth_frame.get_distance(int(xDepth), int(yDepth))  # Get depth (z) value from RealSense depth frame
-            print("Ball coordinates (x, y, z): ", x, y, z)
+            if z != 0.0:
+                print("Ball coordinates (x, y, z): ", x, y, z)
         else: 
-            print("No contours detected")
+            print("No ball detected")
         # Display the frames with detected circles
         cv.namedWindow('RealSense', cv.WINDOW_AUTOSIZE)
         cv.imshow('RealSense', color_image)
