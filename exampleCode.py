@@ -6,9 +6,6 @@ import cv2 as cv
 lower_pink = np.array([0, 70, 70])
 upper_pink = np.array([20, 255, 255])
 
-#Create pink arrays (Constant)
-#lower_pink = np.array([140, 50, 50])
-#upper_pink = np.array([180, 255, 255])
 
 # Initialize RealSense pipeline
 pipeline = rs.pipeline()
@@ -37,11 +34,9 @@ try:
         # Apply color thresholding to detect the ball
         pink_mask = cv.inRange(color_image, lower_pink, upper_pink)
         blur_ball_frame = cv.GaussianBlur(pink_mask, (11, 11), 0)
-        #detected_circles = cv.HoughCircles(blur_ball_frame, cv.HOUGH_GRADIENT, dp=1, minDist=50, param1=200, param2=30, minRadius=0, maxRadius=0)
         ballContours = cv.findContours(pink_mask, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)
-        #print(len(ballContours)) 
 
-        if ballContours[0] is not None:
+        if ballContours is not None and ballContours[0] is not None:
             #print("ball countours: ",ballContours)
             contourArea = cv.contourArea(ballContours[0][0], False)
             #print("ball area: ",contourArea)
@@ -52,12 +47,8 @@ try:
             yDepth = y + (h/2)
             z = depth_frame.get_distance(int(xDepth), int(yDepth))  # Get depth (z) value from RealSense depth frame
             print("Ball coordinates (x, y, z): ", x, y, z)
-
-            #for circle in ballContours[0]: # What does the for loop do?
-                #x, y = circle[:2]  # Extract x, y coordinates of the detected circle
-                #z = depth_frame.get_distance(int(x), int(y))  # Get depth (z) value from RealSense depth frame
-                #print("Ball coordinates (x, y, z):", x, y, z)
-        else: print("No contours detected")
+        else: 
+            print("No contours detected")
         # Display the frames with detected circles
         cv.namedWindow('RealSense', cv.WINDOW_AUTOSIZE)
         cv.imshow('RealSense', color_image)
