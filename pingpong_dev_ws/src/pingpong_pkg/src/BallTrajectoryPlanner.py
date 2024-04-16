@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from geometry_msgs.msg import Vector3
 import rospy
 from pingpong_pkg.msg import BallStateStamped

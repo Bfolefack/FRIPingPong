@@ -1,0 +1,5 @@
+<launch>
+    <include file="$(find pong_gazebo_pkg)/launch/sawyer_pong.launch"></include>
+    <include file="$(find pingpong_pkg)/launch/gazebo_ball_coupler.launch"></include>
+    <include file="$(find pingpong_pkg)/launch/ball_trajectory_planner.launch"></include>
+</launch>

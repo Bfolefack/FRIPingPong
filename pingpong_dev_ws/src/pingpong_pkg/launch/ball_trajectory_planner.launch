@@ -1,0 +1,3 @@
+<launch>
+    <node pkg="pingpong_pkg" name="ball_trajectory_planner" type="ball_trajectory_planner.py" output="screen"></node>
+</launch>
