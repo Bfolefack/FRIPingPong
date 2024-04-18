@@ -1,0 +1,18 @@
+controller_list:
+  - name: fake_sawyer_arm_controller
+    type: $(arg fake_execution_type)
+    joints:
+      - right_j0
+      - right_j1
+      - right_j2
+      - right_j3
+      - right_j4
+      - right_j5
+      - right_j6
+  - name: fake_end_effector_controller
+    type: $(arg fake_execution_type)
+    joints:
+      - right_gripper_l_finger_joint
+initial:  # Define initial robot poses per group
+  - group: end_effector
+    pose: close
