@@ -49,6 +49,13 @@ try:
             depth = depth_frame.get_distance(int(x_center), int(y_center))  # Get depth (z) value depth frame
             if depth != 0.0: #Remove Noise
                 print("Ball coordinates (x, y, z): ", x, y, depth) #Prints ball coordinates in terminal 
+                """
+                Prints BGR values of detected ball
+                frameWidth = color_frame.get_width()
+                colorIndex = y * frameWidth + x
+                colorBGR = color_frame.get_data()[colorIndex * 3 : colorIndex * 3 + 3]
+                print("BGR: ", colorBGR)
+                """
                 cv.putText(color_image, f'X: {x_center}, Y: {y_center}, Z: {depth:.2f}', (10, 30), cv.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2) #Print ball coordinates on camera window 
         else: 
             print("No ball detected") #Ball not found 
