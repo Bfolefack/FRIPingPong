@@ -10,6 +10,8 @@ upper_pink = np.array([15, 255, 255])
 # Initialize RealSense pipeline
 pipeline = rs.pipeline()
 config = rs.config()
+
+
 #config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
 #config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
 
@@ -38,20 +40,18 @@ try:
 
         #
 
-        if len(ballContours[0]) != 0 : #and ballContours[0][0] is not None:
-            #print("ball countours: ",ballContours)
-            #contourArea = cv.contourArea(ballContours[0][0], False)
-            #print("ball area: ",contourArea)
-            #if contourArea > 100:
+        if len(ballContours[0]) != 0 :
             x, y, w, h = cv.boundingRect(ballContours[0][0])
             cv.rectangle(color_image, (x, y), (x + w, y + h), (0, 255, 0), 2)
-            xDepth = x + (w/2)
-            yDepth = y + (h/2)
-            z = depth_frame.get_distance(int(xDepth), int(yDepth))  # Get depth (z) value from RealSense depth frame
-            if z != 0.0:
-                print("Ball coordinates (x, y, z): ", x, y, z)
+            x_center = x + (w/2)
+            y_center = y + (h/2)
+            depth = depth_frame.get_distance(int(x_center), int(y_center))  # Get depth (z) value from RealSense depth frame
+            if depth != 0.0:
+                print("Ball coordinates (x, y, z): ", x, y, depth)
         else: 
             print("No ball detected")
+            
+            
         # Display the frames with detected circles
         cv.namedWindow('RealSense', cv.WINDOW_AUTOSIZE)
         cv.imshow('RealSense', color_image)
