@@ -1,4 +1,10 @@
 controller_list:
+  - name: end_effector_controller
+    action_ns: follow_joint_trajectory
+    type: FollowJointTrajectory
+    default: True
+    joints:
+      - right_gripper_l_finger_joint
   - name: sawyer_arm_controller
     action_ns: follow_joint_trajectory
     type: FollowJointTrajectory
@@ -11,9 +17,3 @@ controller_list:
       - right_j4
       - right_j5
       - right_j6
-  - name: end_effector_controller
-    action_ns: follow_joint_trajectory
-    type: FollowJointTrajectory
-    default: True
-    joints:
-      - right_gripper_l_finger_joint

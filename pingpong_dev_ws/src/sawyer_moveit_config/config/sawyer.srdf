@@ -30,7 +30,7 @@
     <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
     <end_effector name="hand" parent_link="right_gripper_base" group="end_effector" parent_group="sawyer_arm"/>
     <!--VIRTUAL JOINT: Purpose: this element defines a virtual joint between a robot link and an external frame of reference (considered fixed with respect to the robot)-->
-    <virtual_joint name="virtual_joint" type="fixed" parent_frame="world" child_link="base"/>
+    <virtual_joint name="virtual_joint" type="fixed" parent_frame="world" child_link="pedestal_feet"/>
     <!--DISABLE COLLISIONS: By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->
     <disable_collisions link1="controller_box" link2="head" reason="Never"/>
     <disable_collisions link1="controller_box" link2="pedestal" reason="Adjacent"/>
@@ -105,7 +105,6 @@
     <disable_collisions link1="right_gripper_l_finger" link2="right_l4_2" reason="Never"/>
     <disable_collisions link1="right_gripper_l_finger" link2="right_l5" reason="Never"/>
     <disable_collisions link1="right_gripper_l_finger" link2="right_l6" reason="Never"/>
-    <disable_collisions link1="right_gripper_l_finger" link2="screen" reason="Never"/>
     <disable_collisions link1="right_gripper_l_finger_tip" link2="right_gripper_r_finger" reason="Never"/>
     <disable_collisions link1="right_gripper_l_finger_tip" link2="right_gripper_r_finger_tip" reason="Never"/>
     <disable_collisions link1="right_gripper_l_finger_tip" link2="right_hand" reason="Never"/>
@@ -115,6 +114,7 @@
     <disable_collisions link1="right_gripper_l_finger_tip" link2="right_l4_2" reason="Never"/>
     <disable_collisions link1="right_gripper_l_finger_tip" link2="right_l5" reason="Never"/>
     <disable_collisions link1="right_gripper_l_finger_tip" link2="right_l6" reason="Never"/>
+    <disable_collisions link1="right_gripper_l_finger_tip" link2="screen" reason="Never"/>
     <disable_collisions link1="right_gripper_r_finger" link2="right_gripper_r_finger_tip" reason="Adjacent"/>
     <disable_collisions link1="right_gripper_r_finger" link2="right_hand" reason="Never"/>
     <disable_collisions link1="right_gripper_r_finger" link2="right_l2_2" reason="Never"/>
