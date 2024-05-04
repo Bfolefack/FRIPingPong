@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- This file defines gazebo properties for the pong system. -->
+<!-- In particular, this defines:
+        - Gazebo colors
+        - Gazebo joint state publisher plugin                 -->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- Gazebo is unable to use the same <material> tags that out URDF has (which rviz uses); thus, we must write our own -->
+    <!-- Color Definitions -->
+<!--    <gazebo reference="table_link">-->
+<!--        <material>Gazebo/Wood</material>-->
+<!--    </gazebo>-->
+
+<!--    &lt;!&ndash;    <gazebo reference="ball_link">&ndash;&gt;-->
+<!--    &lt;!&ndash;        <material>Gazebo/White</material>&ndash;&gt;-->
+<!--    &lt;!&ndash;    </gazebo>&ndash;&gt;-->
+
+<!--    <gazebo reference="paddle_link">-->
+<!--        <material>Gazebo/Grey</material>-->
+<!--    </gazebo>-->
+
+    <!-- Gazebo requires plugins to interact with external systems (e.g. ROS) -->
+    <!-- This plugin will publish the /joint_states for the selected joints (included in the tags),
+            which robot_state_publisher can then use to broadcast the appropriate transform to tf2) -->
+    <gazebo reference="ball_link">
+        <selfCollide>true</selfCollide>
+    </gazebo>
+    <!--    <gazebo>-->
+    <!--        <plugin name="gazebo_ros_joint_state_publisher"-->
+    <!--                filename="libgazebo_ros_joint_state_publisher.so">-->
+    <!--                    <update_rate>20</update_rate>-->
+    <!--&lt;!&ndash;                    <joint_name>world_to_table_joint</joint_name>&ndash;&gt;-->
+    <!--        </plugin>-->
+    <!--    </gazebo>-->
+</robot>
+
+

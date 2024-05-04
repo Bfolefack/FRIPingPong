@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot name="pong_system" xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:include filename="$(find sawyer_description)/urdf/sawyer.urdf.xacro"/>
+    <xacro:include filename="$(find pong_gazebo_pkg)/models/pong_working.urdf.xacro"/>
+</robot>

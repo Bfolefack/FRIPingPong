@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <!-- Gazebo collision properties -->
+    <gazebo reference="table_link">
+        <material>Gazebo/Blue</material>
+        <mu1> 1.0 </mu1>
+        <mu2> 0.1 </mu2>
+        <maxVel> 23.0 </maxVel>
+        <kp> 1000.0 </kp>
+        <kd> 1.0 </kd>
+        <turnGravityOff>false</turnGravityOff>
+    </gazebo>
+</robot>

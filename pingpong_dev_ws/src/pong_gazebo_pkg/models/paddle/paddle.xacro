@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="paddle">
+<!-- Ping Pong Paddle Link -->
+    <material name="blue">
+        <color rgba="0.2 0.2 1 1"/>
+    </material>
+
+    <link name="paddle_link">
+        <inertial>
+            <origin xyz="0 -.01 0.17275327" rpy="0 0 0"/> <!-- Copied over -->
+            <mass value="0.085"/>
+            <inertia ixx="0.002858" ixy="0" ixz="0" iyy="0.002987" iyz="0" izz="0.0001420" /> <!-- ${0.08333333333*plate_mass*plate_width}-->
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://pong_gazebo_pkg/models/paddle/paddle.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+            <material name="blue"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://pong_gazebo_pkg/models/paddle/paddle.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+            <surface>
+                <bounce restitution_coefficient="0.1" threshold="0.01" />
+            </surface>
+
+            <!-- max_vel doesn't actually work here, must be done maxVel in gazebo reference link -->
+            <!-- <contact>
+                <ode max_vel="23"/>
+            </contact> -->
+      </collision>
+    </link>
+
+<!-- Gazebo collision properties (good to go)-->
+    <gazebo reference="paddle_link">
+        <mu1> 0.1 </mu1>
+        <mu2> 0.1 </mu2>
+        <maxVel> 23.0 </maxVel>
+        <kp> 500000.0 </kp>
+        <kd> 1.0 </kd>
+        <material>Gazebo/Blue</material>
+        <turnGravityOff>false</turnGravityOff>
+    </gazebo>
+</robot>
