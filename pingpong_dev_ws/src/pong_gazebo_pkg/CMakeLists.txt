@@ -16,6 +16,9 @@ find_package(catkin REQUIRED COMPONENTS
   ## Copied Over
   roscpp
   gazebo_ros
+  geometry_msgs
+  gazebo_msgs
+  xacro
 #  message_generation
 #  ignition-common3
 )
@@ -117,9 +120,16 @@ catkin_package(
 #  DEPENDS system_lib
         ## Copied Over
         DEPENDS system_lib
-        CATKIN_DEPENDS roscpp rospy std_msgs
+        CATKIN_DEPENDS roscpp rospy std_msgs gazebo_msgs gazebo_ros geometry_msgs
         INCLUDE_DIRS
         LIBRARIES ${PROJECT_NAME}
+)
+
+catkin_install_python(PROGRAMS src/spawn_ball.py
+        DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+catkin_install_python(PROGRAMS src/spawn_ball_sdf.py
+        DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
 ###########
@@ -132,8 +142,13 @@ include_directories(
 # include
   ${catkin_INCLUDE_DIRS}
   ${GAZEBO_INCLUDE_DIRS}
+  ${xacro_INCLUDE_DIRS}
 #  ${PROTOBUF_INCLUDE_DIRS}
 )
+
+# Copied over
+#file(GLOB xacro_files models/*.xacro)
+#xacro_add_files(${xacro_files} TARGET media_files)
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}

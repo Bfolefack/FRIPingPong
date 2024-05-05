@@ -62,11 +62,13 @@
 
   <build_depend>roscpp</build_depend>
   <build_depend>gazebo_ros</build_depend>
+<!--  <build_depend>pong_gazebo_pkg</build_depend>-->
 
   <exec_depend>gazebo_ros</exec_depend>
   <exec_depend>roscpp</exec_depend>
+<!--  <exec_depend>pong_gazebo_pkg</exec_depend>-->
 
-  <exec_depend>gazebo_ros</exec_depend>
+<!--  <exec_depend>gazebo_ros</exec_depend>-->
   <exec_depend>gazebo_ros_control</exec_depend>
   <exec_depend>joint_state_controller</exec_depend>
   <exec_depend>joint_trajectory_controller</exec_depend>
@@ -75,6 +77,20 @@
   <exec_depend>controller_manager</exec_depend>
 
   <exec_depend>urdf</exec_depend>
+
+<!--  For the ball spawn-->
+  <build_depend>gazebo_msgs</build_depend>
+  <exec_depend>gazebo_msgs</exec_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+
+  <build_depend>xacro</build_depend>
+  <exec_depend>xacro</exec_depend>
+<!--  <build_depend>gazebo_ros</build_depend>-->
+<!--  <exec_depend>gazebo_ros</exec_depend>-->
+
+
+
 
 <!--  <build_depend>protobuf</build_depend>-->
 <!--  <exec_depend>protobuf</exec_depend>-->

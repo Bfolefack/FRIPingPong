@@ -1,0 +1,98 @@
+(check) Fix the whole system's rviz (Claude is tweaking)
+(check) Create ball spawner implementation that only spawns the model (no velocity, or just test 0 velocity) to see where it lands & where the initial position is (how it relates to world)
+------------> Hope that the transform from world to ball works (maybe it doesn't bc other project does it all in gazebo)
+(check) Tweak ball spawner implementation & do some math so that it always works (fix random velocity function)
+(check) Fix the collision geometry
+(check) Check paddle inertial matrix
+(check) Check failures on deleteService()
+(check) Check failures on deleteServiceFinal() -- maybe not being called right way?
+- Fix the friction of everything
+- Check how the replay buffer
+- OpenAI gym parts work
+- Check how training data is going to work
+
+- Finish writing out the description
+- Look into the replay buffer & how the OpenAI gym stuff works
+- IF time, check how training data works
+
+(check) Understand loss function
+(check) Understand replay buffer
+- Understand how the OpenAI gym stuff works
+
+- Get video & pictures
+- Fix the loss function
+- Write the OpenAI gym template
+
+
+.......
+
+- Deep read the paper
+- DMPLING (if stroke, not bounce); otherwise, MoveIt! ?
+- Figure out inverse kinematics as it relates to MoveIt! and DMPLING
+- Look into the specific middle of opponent's side of the table
+- Determine paper's type of reinforcement learning algorithm (Q-Learning, Policy Gradient, mix?)
+- Write reinforcement learning algorithm
+
+
+---------------------------------------------------------------
+
+
+Useful Resources
+- Setting velocity: https://classic.gazebosim.org/tutorials?tut=set_velocity#SetVelocityInstantaneously
+- Using multiple robots: https://answers.ros.org/question/41433/multiple-robots-simulation-and-navigation/
+
+---------------------------------------------------------------
+
+Mini-Planning:
+(check) Encode the logic for checking ball position into the deleteService
+(check) Update to account for ready to spawn (in ballSpawner() function)
+(check) Encode logic for whether or not to spawn a ball based on existence of current ball
+- Figure out timing for ball spawning & killed along with the checkForModel function callback
+- deleteService and ballSpawner deal with readyToSpawn
+- Add necessary build items
+- Recall this is just run with rosrun
+
+--------------------------------------------------------------
+
+Notes:
+- rospy Subscriber model_states -> checkForModel -> checkDropBelowThreshold
+- checkForModel takes care of deciding whether the ball exists or not (not ballSpawner or deleteService)
+- deleteService and ballSpawner deal with readyToSpawn
+(check) Reconcile overarching urdf with smaller urdfs
+(check) Fix collision properties of ball and/or table
+(check) Get paddle back (play around w/ it in sawyer_world.launch until it works then full-integration)
+- Noticed bounce works on floor, not on table?
+- Tried just using sdf & sdf launch to see if it helps troubleshoot (fixed color thing, Gazebo being processed?)
+- Recently => errors with table collision again?)
+- Reinforcement learning assumes expected landing location is valid (so if the expected location isn't, immediately just have no action)
+
+--------------------------------------------------------------
+
+Goals Today:
+- Fix buffer not working after a while weirdness
+- Fix bounce collsion properties (add in gazebo references, fix actual urdf w/ friction, kp, etc)
+
+- Try urdf properties fix for resitution & max vel
+- Try gazebo reference maxVel thing only
+- Fix deleteService() and more specifically deleteServiceFinal()
+- Fix discrepancies between pong_working.urdf & each individual urdf (which I'm now using)
+- sawyer_world command=xacro thing could be insightful for the pong_working launch & current issues
+
+--------------------------------------------------------------
+
+Useful Gazebo stuff: http://classic.gazebosim.org/tutorials?tut=ros_urdf&cat=connect_ros
+
+-   Add a <gazebo> element for every <link>
+       Convert visual colors to Gazebo format
+       Convert stl files to dae files for better textures
+       Add sensor plugins
+-   Add a <gazebo> element for every <joint>
+       Set proper damping dynamics
+       Add actuator control plugins
+-   Add a <gazebo> element for the <robot> element
+-   Add a <link name="world"/> link if the robot should be rigidly attached to the world/base_link
+
+--------------------------------------------------------------
+
+RL Questions
+- max_action variable

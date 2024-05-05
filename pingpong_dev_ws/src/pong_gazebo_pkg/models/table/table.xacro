@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="table">
+<!-- Table Link -->
+    <material name="white">
+        <color rgba="1 1 1 1"/>
+    </material>
+
+    <link name="table_link">
+        <visual>
+            <geometry>
+                <mesh filename="package://pong_gazebo_pkg/models/table/table.stl" scale="0.001 0.001 0.001"/>/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <material name = "white" />
+        </visual>
+
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://pong_gazebo_pkg/models/table/table.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+            <surface>
+                <bounce>
+                    <restitution_coefficient> 0.877 </restitution_coefficient>
+                    <threshold> 0 </threshold>
+                </bounce>
+            </surface>
+            <!-- max_vel doesn't actually work here, must be done maxVel in gazebo reference link -->
+            <!-- <contact>
+                <ode>
+                    <max_vel> 23 </max_vel>
+                </ode>
+            </contact> -->
+        </collision>
+
+        <!-- Inertial field doesn't actually matter since the table is fixed -->
+        <inertial>
+            <mass value="150.0"/> <!-- Arbitrary mass value -->
+
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+
+            <inertia ixx="0.002858" ixy="0" ixz="0" iyy="0.002987" iyz="0" izz="0.0001420"/> <!-- Arbitrary inertial matrix values -->
+
+        </inertial>
+    </link>
+
+    <!-- Gazebo collision properties -->
+    <gazebo reference="table_link">
+        <material>Gazebo/Wood</material>
+        <mu1> 0.2 </mu1>
+        <mu2> 0.2 </mu2>
+        <maxVel> 23.0 </maxVel>
+        <minDepth>0</minDepth>
+        <kp> 500000.0 </kp>
+        <kd> 1.0 </kd>
+        <turnGravityOff>false</turnGravityOff>
+    </gazebo>
+
+</robot>

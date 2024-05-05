@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<!-- Note: This launch file is used to test the URDF and Meshes
+     PLEASE - DO NOT launch this while networked against
+     a real Sawyer robot. It will crash the onboard
+     robot_state_publisher, and you will need to reboot
+     your robot for it to function properly again -->
+<launch>
+<!-- Sawyer Rviz -->
+    <!-- Load the URDF into the ROS Parameter Server -->
+    <!-- Pong System -->
+    <param name="robot_description" textfile="$(find pong_gazebo_pkg)/models/sawyer_pong_system.urdf.xacro"/>
+
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+        <param name="use_gui" value="true" />
+    </node>
+    <node if="true" pkg="tf2_ros" type="static_transform_publisher"
+          name="base_to_world" args="0 0 0 0 0 0 1 world base" />
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen"/>
+    <node name="rviz" pkg="rviz" type="rviz"/>
+
+</launch>

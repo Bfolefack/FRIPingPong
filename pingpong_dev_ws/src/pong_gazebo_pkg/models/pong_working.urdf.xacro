@@ -1,5 +1,7 @@
-<?xml version="1.0"?>
-<robot name="sawyer_pong_system" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This file the urdf for the pong system. -->
+
+<robot name="pong_system" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
     <!--                                  THE FOLLOWING ARE THE PING PONG SYSTEM LINKS: ball_link paddle_link table_link                        -->
     <!--                                                                                                                                        -->
@@ -7,149 +9,11 @@
     <!--                                                                                                                                        -->
 
     <!-- World Link -->
-    <link name="world"></link>
+    <link name="world"/>
 
-    <!-- Ping Pong Ball Link -->
-    <link name="ball_link">
-        <visual>
-            <origin xyz="0 0 0.01" rpy="0 0 0" />
-            <!--            <origin xyz="0 0 0" rpy="0 0 0"/>-->
-            <!-- Define a spherical shape -->
-            <geometry>
-                <sphere radius="0.02" />
-            </geometry>
+    <xacro:include filename="$(find pong_gazebo_pkg)/models/table/table.xacro"/>
 
-            <material name="white">
-                <color rgba="1 1 1 1" />
-            </material>
-        </visual>
-
-        <collision>
-            <origin xyz="0 0 0.01" rpy="0 0 0" />
-            <!--            <origin xyz="0 0 0" rpy="0 0 0"/>-->
-            <geometry>
-                <sphere radius="0.02" />
-            </geometry>
-            <surface>
-                <friction>
-                    <ode>
-                        <mu>0.2</mu> <!-- Static friction coefficient -->
-                        <mu2>0.1</mu2>
-                        <!-- Dynamic friction coefficient -->
-                    </ode>
-                </friction>
-                <bounce restitution_coefficient="1.0" threshold="0" />
-                <contact>
-                    <ode>
-                        <max_vel>10</max_vel>
-                    </ode>
-                </contact>
-            </surface>
-        </collision>
-
-        <inertial>
-            <mass value="0.0027" />
-            <origin xyz="0 0 0" rpy="0 0 0" /> <!-- Center of mass -->
-            <!-- Approximate values given a hollow sphere -->
-            <inertia ixx="2.37e-8" ixy="0" ixz="0" iyx="0" iyy="2.37e-8" iyz="0" izx="0" izy="0"
-                izz="2.37e-8" />
-        </inertial>
-    </link>
-
-    <!-- Ping Pong Paddle Link -->
-    <link name="paddle_link">
-        <inertial>
-            <origin xyz="0 -.01 0.17275327" rpy="0 0 0" />
-            <mass value="0.085" />
-            <inertia ixx="0.002858" ixy="0" ixz="0" iyy="0.002987" iyz="0" izz="0.0001420" /> <!--
-            ${0.08333333333*plate_mass*plate_width}-->
-        </inertial>
-        <visual>
-            <!--            <origin xyz="0 0 0" rpy="0 0 0" />-->
-            <origin xyz="0.075 -0.012 0.06" rpy="0 0 0" />
-            <geometry>
-                <mesh filename="package://pong_gazebo_pkg/models/paddle/paddle.stl"
-                    scale="0.001 0.001 0.001" />
-            </geometry>
-        </visual>
-        <collision>
-            <!--            <origin xyz="0 0 0" rpy="0 0 0" />-->
-            <origin xyz="0.075 -0.012 0.06" rpy="0 0 0" />
-            <geometry>
-                <mesh filename="package://pong_gazebo_pkg/models/paddle/paddle.stl"
-                    scale="0.001 0.001 0.001" />
-            </geometry>
-            <surface>
-                <friction>
-                    <ode>
-                        <mu>0.8</mu>  <!-- Coefficient of friction-->
-                        <mu2>0.4</mu2>  <!-- Additional friction model parameter-->
-                    </ode>
-                </friction>
-                <bounce restitution_coefficient="0.1" threshold="0.01" />
-            </surface>
-        </collision>
-    </link>
-
-
-    <!-- Table Link -->
-    <link name="table_link">
-        <visual>
-            <geometry>
-                <mesh filename="package://pong_gazebo_pkg/models/table/table.stl"
-                    scale="0.001 0.001 0.001" />
-            </geometry>
-            <scale>0.0001 0.001 0.0001</scale>
-            <origin xyz="0 0 0" rpy="0 0 0" />
-
-            <material name="table_material">
-                <color rgba="0.15 0.6 0.15 1.0" />  <!-- Green color -->
-            </material>
-            <material>
-                <diffuse>0 0 0.75 1</diffuse>
-                <script>
-                    <uri>file://ping_pong_gazebo/models/table/table.dae</uri>
-                    <name>Gazebo/Table</name>
-                </script>
-            </material>
-        </visual>
-
-
-        <collision>
-            <geometry>
-                <mesh filename="package://pong_gazebo_pkg/models/table/table.stl"
-                    scale="0.001 0.001 0.001" />
-            </geometry>
-            <!-- Friction & Bounce Details for Table -->
-            <surface>
-                <friction>
-                    <ode>
-                        <mu>0.3</mu>  <!-- Coefficient of friction-->
-                        <mu2>0.2</mu2>  <!-- Additional friction model parameter-->
-                    </ode>
-                </friction>
-                <bounce>
-                    <restitution_coefficient>0.8</restitution_coefficient>  <!-- Restitution
-                    coefficient-->
-                    <threshold>0.1</threshold>  <!-- Bounce capture velocity threshold-->
-                </bounce>
-            </surface>
-
-            <origin xyz="0 0 0" rpy="0 0 0" />
-
-        </collision>
-
-        <!-- Inertial field doesn't actually matter since the table is fixed -->
-        <inertial>
-            <mass value="51.99" />
-            <!-- Also an Estimate -->
-            <!-- <origin xyz="0 0 0" rpy="0 0 0" /> -->
-            <origin xyz="1.35 0.7625 0.38" rpy="0 0 0" />
-            <!-- Guess based on a rectangular prism; not great, but ChatGPT thinks it's good...-->
-            <inertia ixx="2.1374" ixy="0" ixz="0" iyx="0" iyy="6.0918" iyz="0" izx="0" izy="0"
-                izz="6.1087" />
-        </inertial>
-    </link>
+<!--    <xacro:include filename="$(find pong_gazebo_pkg)/models/ball/ball.xacro"/>-->
 
 
     <!--                                            THE FOLLOWING ARE THE PING PONG SYSTEM JOINTS:                                              -->
@@ -158,27 +22,16 @@
     <!--                                                                                                                                        -->
 
     <joint name="world_to_table_joint" type="fixed">
-        <parent link="world" />
-        <child link="table_link" />
-        <origin xyz="1 1 0" rpy="0 0 0" />
+        <parent link="world"/>
+        <child link="table_link"/>
+        <origin xyz="0.75 -1 0" rpy="0 0 0" />
     </joint>
 
-    <joint name="table_to_ball_joint" type="floating">
-        <parent link="table_link" />
-        <child link="ball_link" />
-        <origin xyz="0 0 0" rpy="0 0 0" />
-        <initial_joint_states>
-            <position xyz="0 0 0" rpy="0 0 0" />
-        </initial_joint_states>
-    </joint>
-
-    <joint name="table_to_paddle_joint" type="floating">
-        <parent link="table_link" />
-        <child link="paddle_link" />
-        <origin xyz="0 0 1" rpy="0 0 0" />
-        <initial_joint_states>
-            <position xyz="0 0 0" rpy="0 0 0" />
-        </initial_joint_states>
-    </joint>
+<!--&lt;!&ndash;    Temporary (for testing ball link gazebo properties&ndash;&gt;-->
+<!--    <joint name="world_to_ball_joint" type="fixed">-->
+<!--        <parent link="world"/>-->
+<!--        <child link="ball_link"/>-->
+<!--        <origin xyz="0 0 0" rpy="0 0 0" />-->
+<!--    </joint>-->
 
 </robot>

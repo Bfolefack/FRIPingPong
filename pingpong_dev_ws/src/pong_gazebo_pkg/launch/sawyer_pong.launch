@@ -92,11 +92,8 @@
     <!-- Publish a static transform between the world and the base of the robot -->
     <node pkg="rosbag" type="play" name="io_robot" args="-l $(find sawyer_gazebo)/share/bags/robot_io.bag" />
 
-    <param name="robot_description2" textfile="$(find pong_gazebo_pkg)/models/pong_working.urdf.xacro"/>
+    <param if="$(arg load_robot_description)" name="robot_description2"
+           command="$(find xacro)/xacro --inorder $(find pong_gazebo_pkg)/models/pong_working.urdf.xacro"/>
     <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description2 -urdf -model pong_system" />
 
 </launch>
-
-<!--    <param name="robot_description2" textfile="$(find pong_gazebo_pkg)/models/pong_working.urdf.xacro"/>-->
-
-<!--    <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description2 -urdf -model pong_system" />-->
